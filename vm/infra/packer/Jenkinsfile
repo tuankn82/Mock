@@ -1,93 +1,60 @@
 pipeline {
-  options {
-    timestamps()
-    timeout(time: 180, unit: 'MINUTES')
-    disableConcurrentBuilds()
-    buildDiscarder(logRotator(numToKeepStr: '250', daysToKeepStr: '5'))
-  }
-  agent {
-    dockerfile {
-      additionalBuildArgs '${DOCKER_NO_CACHE} --tag "packer-tuankn/jenkins-agent:${IMG_LABEL}" --build-arg "TERRAFORM_VERSION=${TERRAFORM_VERSION}" --build-arg "PACKER_VERSION=${PACKER_VERSION}" --build-arg "USER_ID=$(user_id="$(id --user)"; [[ "${user_id}" == 0 ]] && echo "1000" || echo "${user_id}")" --build-arg "GROUP_ID=$(group_id="$(id --group)"; [[ "${group_id}" == 0 ]] && echo "1000" || echo "${group_id}")"'
+    agent any
+    environment {
+        DOCKER_IMAGE = "tuankn/nginx"
     }
-  } 
-  environment {
-    AWS_ACCESS_KEY_ID     = credentials('PACKER_AWS_ACCESS_KEY')
-    AWS_SECRET_ACCESS_KEY = credentials('PACKER_AWS_SECRET_KEY')
-    WORK_SUB_DIR          = 'vm/infra/packer'
-    JENKINS_USER_ID       = 'tuankn'
-    JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
-  }
-  parameters {
-    string(
-      name: 'IMG_LABEL',
-      defaultValue: 'latest',
-      description: 'docker container image label name'
-    )
-    choice(
-      name: 'PACKER_REMOTE_USER',
-      choices: [
-        'ubuntu',
-      ],
-      description: 'packer remote user'
-    )
-    choice(
-      name: 'TERRAFORM_VERSION',
-      choices: [
-        '1.4.4',
-      ],
-      description: 'terraform version'
-    )
-    choice(
-      name: 'PACKER_VERSION',
-      choices: [
-        '1.8.6',
-      ],
-      description: 'packer version'
-    )
-  }
-  stages {
-    stage("terraform-apply") {
-      options {
-        timeout(time: 10, unit: 'MINUTES')
-      }
-      steps {
-        sh '''#!/usr/bin/env bash
-          echo "Shell Process ID: $$"
-          cd "${WORK_SUB_DIR}"
-          sed -i 's/\r$//' scripts/*
-          bash scripts/terraform-infra-jenkins.bash
-        '''
-      }
+    stages {
+        stage("Build") {
+            options {
+                timeout(time: 10, unit: 'MINUTES')
+            }
+            environment {
+                DOCKER_TAG = "${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
+            }
+            steps {
+                sh '''
+                docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+                docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest
+                docker image ls | grep ${DOCKER_IMAGE}'''
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_IMAGE}:latest"
+                }
+                //clean to save disk
+                sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                sh "docker image rm ${DOCKER_IMAGE}:latest"
+            }
+        }
+        stage("Deploy") {
+            options {
+                timeout(time: 10, unit: 'MINUTES')
+            }
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-hub',
+                    usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD'
+                )]) {
+                    ansiblePlaybook(
+                        credentialsId: 'private_key',
+                        playbook: 'playbook.yml',
+                        inventory: 'hosts',
+                        become: 'yes',
+                        extraVars: [
+                            DOCKER_USERNAME: "${DOCKER_USERNAME}",
+                            DOCKER_PASSWORD: "${DOCKER_PASSWORD}"
+                        ]
+                    )
+                }
+            }
+        }
     }
-    stage("packaging-image") {
-      options {
-        timeout(time: 150, unit: 'MINUTES')
-      }
-
-      steps {
-        sh '''#!/usr/bin/env bash
-          echo "Shell Process ID: $$"
-          set -o errexit
-          readonly ROLE_LIST=(
-            web
-            app
-          )
-          cd "${WORK_SUB_DIR}"
-          for role_name in "${ROLE_LIST[@]}"
-          do
-            bash scripts/packer-build.sh $role_name
-          done
-        '''
-      }
+    post {
+        success {
+            echo "SUCCESSFULL"
+        }
+        failure {
+            echo "FAILED"
+        }
     }
-  }
-  post {
-    cleanup {
-      sh '''#!/usr/bin/env bash
-        echo "Shell Process ID: $$"
-        cd "${WORK_SUB_DIR}"
-        bash scripts/post-cleanup.sh
-      '''
-    }
-  }
 }
