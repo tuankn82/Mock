@@ -27,7 +27,7 @@ RUN apt-get update --yes && \
     wget \
     && rm --recursive --force /var/lib/apt/lists/*
 
-RUN pip3 install --update \
+RUN pip3 install --upgrade \
     ansible \
     awscli \
     bashplotlib \
