@@ -17,34 +17,34 @@ pipeline {
     JENKINS_USER_ID       = 'tuankn'
     JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
   }
-  parameters {
-    string(
-      name: 'IMG_LABEL',
-      defaultValue: 'latest',
-      description: 'docker container image label name'
-    )
-    choice(
-      name: 'PACKER_REMOTE_USER',
-      choices: [
-        'ubuntu',
-      ],
-      description: 'packer remote user'
-    )
-    choice(
-      name: 'TERRAFORM_VERSION',
-      choices: [
-        '1.4.4',
-      ],
-      description: 'terraform version'
-    )
-    choice(
-      name: 'PACKER_VERSION',
-      choices: [
-        '1.8.6',
-      ],
-      description: 'packer version'
-    )
-  }
+  // parameters {
+  //   string(
+  //     name: 'IMG_LABEL',
+  //     defaultValue: 'latest',
+  //     description: 'docker container image label name'
+  //   )
+  //   choice(
+  //     name: 'PACKER_REMOTE_USER',
+  //     choices: [
+  //       'ubuntu',
+  //     ],
+  //     description: 'packer remote user'
+  //   )
+  //   choice(
+  //     name: 'TERRAFORM_VERSION',
+  //     choices: [
+  //       '1.4.4',
+  //     ],
+  //     description: 'terraform version'
+  //   )
+  //   choice(
+  //     name: 'PACKER_VERSION',
+  //     choices: [
+  //       '1.8.6',
+  //     ],
+  //     description: 'packer version'
+  //   )
+  // }
   stages {
     stage("terraform-apply") {
       options {
