@@ -21,9 +21,10 @@
     "builders": [
         {
           "type": "amazon-ebs",
+          "name": "ebs-{{ user `project_name` }}-{{ user `security_group_id` }}-{{ user `role_name` }}",
           "associate_public_ip_address": true,
           "region": "{{ user `region_name` }}",
-          "source_ami": "ami-09d56f8956ab235b3",
+          "source_ami": "ami-0db245b76e5c21ca1",
           "instance_type": "{{ user `instance_type` }}",
           "ssh_username": "{{ user `packer_remote_user` }}",
           "ssh_keypair_name": "{{ user `public_key` }}",
