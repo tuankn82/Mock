@@ -12,4 +12,5 @@ ${jsonencode({
     "volume_size"            = "${volume_size}"
     "packer_remote_user"     = "${packer_remote_user}"
     "ansible_dir_path"       = "${ansible_dir_path}"
+    "image_id"               = "${image_id}"
 })}
