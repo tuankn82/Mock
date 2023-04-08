@@ -29,8 +29,6 @@
             "filters": {
               "virtualization-type": "hvm",
               "root-device-type": "ebs",
-              "architecture": "x86_64",
-              "description": "{{ user `ami_desc` }}",
               "name": "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*"
             },
             "owners": [
