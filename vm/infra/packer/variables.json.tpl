@@ -8,6 +8,7 @@ ${jsonencode({
     "instance_type"          = "${instance_type}"
     "ami_desc"               = "${ami_desc}"
     "ami_owner"              = "${ami_owner}"
+    "ami_id"                 = "${ami_id}"
     "volume_type"            = "${volume_type}"
     "volume_size"            = "${volume_size}"
     "packer_remote_user"     = "${packer_remote_user}"
