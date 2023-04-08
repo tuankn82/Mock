@@ -39,7 +39,7 @@ variable "private_keyname" {
 variable "ami_spec" {
   description = "AMI spec"
   default = {
-    "instance_type"      = "t2.micro"
+    "instance_type"      = "t3.micro"
     "ami_desc"           = "Canonical, Ubuntu, 20.04 LTS*"
     "ami_owner"          = "self"
     "volume_type"        = "gp2"
