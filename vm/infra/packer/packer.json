@@ -16,7 +16,6 @@
         "private_key": "",
         "vpc_id": "",
         "subnet_id": "",
-        "image_id": "",
         "security_group_id": ""
     },
     "builders": [
@@ -30,7 +29,8 @@
             "filters": {
               "virtualization-type": "hvm",
               "root-device-type": "ebs",
-              "image-id": "{{ user `image_id` }}"
+              "architecture": "x86_64",
+              "name": "ubuntu/images/hvm:ebs-ssd/ubuntu-focal-20.04-amd64-server-*"
             },
             "owners": [
               "{{ user `ami_owner` }}"

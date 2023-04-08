@@ -41,8 +41,7 @@ variable "ami_spec" {
   default = {
     "instance_type"      = "t3.micro"
     "ami_desc"           = "Canonical, Ubuntu, 20.04 LTS*"
-    "ami_owner"          = "self"
-    "image_id"           = "ami-0db245b76e5c21ca1"
+    "ami_owner"          = "099720109477"
     "volume_type"        = "gp2"
     "volume_size"        = "20"
     "packer_remote_user" = "ubuntu"
