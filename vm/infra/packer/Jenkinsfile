@@ -47,10 +47,14 @@ pipeline {
   }
   stages {
     stage("terraform-apply") {
-    echo "tuankn"
+      steps {
+          echo "tuankn"
+      }
     }
     stage("packaging-image") {
-     echo "hangnt"
+      steps {
+        echo "hangnt"
+      }   
     }
   }
   post {
