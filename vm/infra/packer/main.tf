@@ -135,7 +135,6 @@ resource "local_file" "packer-variables" {
     instance_type      = lookup(var.ami_spec, "instance_type")
     ami_desc           = lookup(var.ami_spec, "ami_desc")
     ami_owner          = lookup(var.ami_spec, "ami_owner")
-    ami_name           = lookup(var.ami_spec, "ami_name")
     volume_type        = lookup(var.ami_spec, "volume_type")
     volume_size        = lookup(var.ami_spec, "volume_size")
     packer_remote_user = lookup(var.ami_spec, "packer_remote_user")
