@@ -31,7 +31,7 @@
               "root-device-type": "ebs",
               "architecture": "x86_64",
               "description": "{{ user `ami_desc` }}",
-              "ami-id": "{{ user `ami_id` }}"
+              "name": "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*"
             },
             "owners": [
               "{{ user `ami_owner` }}"
