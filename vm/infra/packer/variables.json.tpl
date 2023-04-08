@@ -7,6 +7,7 @@ ${jsonencode({
     "security_group_id"      = "${security_group_id}"
     "instance_type"          = "${instance_type}"
     "ami_desc"               = "${ami_desc}"
+    "ami_name"               = "${ami_name}"
     "ami_owner"              = "${ami_owner}"
     "volume_type"            = "${volume_type}"
     "volume_size"            = "${volume_size}"
