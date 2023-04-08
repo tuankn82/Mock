@@ -15,7 +15,8 @@
         "public_key": "",
         "private_key": "",
         "vpc_id": "",
-        "subnet_id": ""
+        "subnet_id": "",
+        "security_group_id": ""
     },
     "builders": [
         {
