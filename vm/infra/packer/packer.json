@@ -1,5 +1,5 @@
 {
-    "description": "package image for {{ user 'role_name' }}",
+    "description": "package image for {{ user `role_name` }}",
     "variables": {
         "build_ts": "{{ timestamp }}",
         "project_name": "",
@@ -71,7 +71,7 @@
             "--extra-vars", "packer_remote_user={{ user `packer_remote_user` }}",
             "--extra-vars", "role_name={{ user `role_name` }}"
           ],
-          "galaxy_file": "{{ user `ansible_dir_path` }}/ansible/galaxy-requirements.yml",
+          "galaxy_file": "{{ user `ansible_dir_path` }}/ansible/galaxy.yml",
           "playbook_file": "{{ user `ansible_dir_path` }}/ansible/packer-imaging_{{ user `role_name` }}.yml"
         },
         {
