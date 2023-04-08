@@ -26,11 +26,7 @@
           "region": "{{ user `region_name` }}",
   
           "source_ami_filter": {
-            "filters": {
-              "virtualization-type": "hvm",
-              "root-device-type": "ebs",
-              "name": "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*"
-            },
+            "source_ami": "ami-06c4532923d4ba1ec",
             "owners": [
               "{{ user `ami_owner` }}"
             ],
