@@ -1,9 +1,9 @@
 {
-    "description": "package image for web",
+    "description": "package image for {{ user `role_name` }}",
     "variables": {
         "build_ts": "{{ timestamp }}",
         "project_name": "",
-        "role_name": "web",
+        "role_name": "{{ env `role_name` }}",
         "remote_user": "",
         "region_name": "",
         "instance_type": "",
