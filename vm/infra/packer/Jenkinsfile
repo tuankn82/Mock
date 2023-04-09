@@ -69,6 +69,7 @@ pipeline {
           set -o errexit
           readonly ROLE_LIST=(
             app
+            web
           )
           cd "${WORK_SUB_DIR}"
           for role_name in "${ROLE_LIST[@]}"
