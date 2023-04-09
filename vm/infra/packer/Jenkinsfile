@@ -15,6 +15,7 @@ pipeline {
     AWS_SECRET_ACCESS_KEY = credentials('PACKER_AWS_SECRET_KEY')
     WORK_SUB_DIR          = 'vm/infra/packer'
     JENKINS_USER_ID       = 'tuankn'
+    DESTROY_MANUALLY      = "${params.DESTROY_MANUALLY}"
 //    JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
   }
   parameters {
@@ -44,6 +45,7 @@ pipeline {
       ],
       description: 'packer version'
     )
+    booleanParam(name: 'DESTROY_MANUALLY', defaultValue: false, description: 'Perform Terraform destroy manually')
   }
   stages {
     stage("terraform-apply") {
@@ -85,12 +87,12 @@ pipeline {
       sh '''#!/usr/bin/env bash
         echo "Shell Process ID: $$"
         cd "${WORK_SUB_DIR}"
-        read -p "Press Enter to continue"
+        if (DESTROY_MANUALLY == 'true') {
         bash scripts/post-cleanup.sh
+        } else {
+        echo 'Terraform destroy is not performed manually'
+        }
       '''
-    }
-    when {
-      expression { params.DESTROY_MANUAL == 'true'}
     }
   }
 }
