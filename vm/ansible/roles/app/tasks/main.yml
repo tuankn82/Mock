@@ -1,11 +1,6 @@
 ---
 - name: install jdk package
   block: 
-    - name: add gnupg key for zulu openjdk
-      apt_key: 
-        id: 'B1998361219BD9C9'
-        keyserver: 'hkp://keyserver.ubuntu.com:80'
-        state: present
 
     - name: add apt repository for zulu openjdk
       apt_repository: 
