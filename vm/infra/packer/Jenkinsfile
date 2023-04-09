@@ -88,9 +88,12 @@ pipeline {
           cd "${WORK_SUB_DIR}"
           if [ "${DESTROY_MANUALLY}" == "true"] 
           then
+            echo 'Destroying infrastructure in 10 seconds...'
+            sleep 10
+            read -n 1 -s -r -p "Press ENTER to continue, or CTRL+C to cancel..."
             bash scripts/post-cleanup.sh
           else 
-            echo 'Terraform destroy is not performed manually'
+             echo 'Terraform destroy is not performed manually'
           fi
         '''
       }
