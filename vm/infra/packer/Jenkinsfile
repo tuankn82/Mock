@@ -85,8 +85,12 @@ pipeline {
       sh '''#!/usr/bin/env bash
         echo "Shell Process ID: $$"
         cd "${WORK_SUB_DIR}"
+        read -p "Press Enter to continue"
         bash scripts/post-cleanup.sh
       '''
+    }
+    when {
+      expression { params.DESTROY_MANUAL == 'true'}
     }
   }
 }
