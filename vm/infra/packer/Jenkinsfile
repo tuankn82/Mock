@@ -15,7 +15,7 @@ pipeline {
     AWS_SECRET_ACCESS_KEY = credentials('PACKER_AWS_SECRET_KEY')
     WORK_SUB_DIR          = 'vm/infra/packer'
     JENKINS_USER_ID       = 'tuankn'
-    DESTROY_MANUALLY      = "${params.DESTROY_MANUALLY}"
+    DESTROY_INFRA      = "${params.DESTROY_INFRA}"
 //    JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
   }
   parameters {
