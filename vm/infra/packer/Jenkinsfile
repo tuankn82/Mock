@@ -45,7 +45,7 @@ pipeline {
       ],
       description: 'packer version'
     )
-    booleanParam(name: 'DESTROY_MANUALLY', defaultValue: false, description: 'Perform Terraform destroy manually')
+    booleanParam(name: 'DESTROY_INFRA', defaultValue: false, description: 'Perform Terraform destroy')
   }
   stages {
     stage("terraform-apply") {
@@ -86,13 +86,11 @@ pipeline {
         sh '''#!/usr/bin/env bash
           echo "Shell Process ID: $$"
           cd "${WORK_SUB_DIR}"
-          if [ "${DESTROY_MANUALLY}" == "true" ] 
+          if [ "${DESTROY_INFRA}" == "true" ] 
           then
-            echo "Destroying infrastructure in 10 seconds..."
-            timeout 10 bash -c "read -n 1 -s -r -p 'Press ENTER to continue, or CTRL+C to cancel...' && exit 0"
-            terraform destroy & wait
+            bash scripts/post-cleanup.sh
           else 
-            echo 'Terraform destroy is not performed manually'
+            echo 'Terraform destroy is not performed'
           fi
         '''
       }
