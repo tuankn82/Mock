@@ -90,7 +90,7 @@ pipeline {
           then
             echo "Destroying infrastructure in 10 seconds..."
             timeout 10 bash -c "read -n 1 -s -r -p 'Press ENTER to continue, or CTRL+C to cancel...' && exit 0"
-            bash scripts/post-cleanup.sh
+            terraform destroy
           else 
             echo 'Terraform destroy is not performed manually'
           fi
