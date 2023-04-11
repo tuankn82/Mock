@@ -2,12 +2,14 @@
 
 - name: gather facts
   hosts: all
+
   gather_facts: true
   become: true
   remote_user: '{{ remote_user }}'
 
 - name: configure web
   hosts: web
+
   gather_facts: no
   become: true
   remote_user: '{{ remote_user }}'
@@ -21,6 +23,7 @@
 
 - name: configure app
   hosts: app
+
   gather_facts: no
   become: true
   remote_user: '{{ remote_user }}'
