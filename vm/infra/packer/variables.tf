@@ -3,7 +3,7 @@ variable "project" {
 }
 
 variable "region" {
-  default = "eu-west-2"
+  default = "us-west-2"
 }
 
 variable "profile" {
