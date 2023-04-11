@@ -30,7 +30,7 @@ pipeline {
       description: 'docker container image label name'
     )
     choice(
-      name: 'TF_REMOTE_USER',
+      name: 'REMOTE_USER',
       choices: [
         'ubuntu',
       ],

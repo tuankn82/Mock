@@ -1,5 +1,5 @@
 Host *
-  User ${tf_remote_user}
+  User ${remote_user}
   StrictHostKeyChecking no
   ControlMaster auto
   ControlPath ~/.ssh/ansible-%r@%h:%p
@@ -11,7 +11,7 @@ Host *
 # for bastion node
 Host bastion-01 ${bastion_public_ip}
   HostName ${bastion_public_ip}
-  User ${tf_remote_user}
+  User ${remote_user}
   StrictHostKeyChecking no
   UserKnownHostsFile=/dev/null
   LogLevel ERROR
@@ -21,8 +21,8 @@ Host bastion-01 ${bastion_public_ip}
 %{ for index, private_ip in split(",", web_private_ips) ~}
 Host web-${format("%02d", index + 1)} ${private_ip}
   HostName ${private_ip}
-  User ${tf_remote_user}
-  ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i ${ssh_private_key_path_bastion} ${tf_remote_user}@${bastion_public_ip}
+  User ${remote_user}
+  ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i ${ssh_private_key_path_bastion} ${remote_user}@${bastion_public_ip}
   StrictHostKeyChecking no
   UserKnownHostsFile=/dev/null
   LogLevel ERROR
@@ -33,8 +33,8 @@ Host web-${format("%02d", index + 1)} ${private_ip}
 %{ for index, private_ip in split(",", app_private_ips) ~}
 Host app-${format("%02d", index + 1)} ${private_ip}
   HostName ${private_ip}
-  User ${tf_remote_user}
-  ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i ${ssh_private_key_path_bastion} ${tf_remote_user}@${bastion_public_ip}
+  User ${remote_user}
+  ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i ${ssh_private_key_path_bastion} ${remote_user}@${bastion_public_ip}
   StrictHostKeyChecking no
   UserKnownHostsFile=/dev/null
   LogLevel ERROR
