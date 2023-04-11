@@ -3,7 +3,7 @@ account_id = "541253215789"
 project    = "packer-tuankn"
 env        = "tuankn"
 profile    = "packer-tuankn"
-region     = "us-west-2"
+region     = "eu-west-2"
 
 vpc_cidr               = "192.168.100.0/24"
 number_public_subnets  = 3
