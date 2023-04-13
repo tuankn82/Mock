@@ -61,7 +61,7 @@ pipeline {
         '''
       }
     }
-    stage("packaging-image") {
+    stage("packging-image") {
       options {
         timeout(time: 150, unit: 'MINUTES')
       }

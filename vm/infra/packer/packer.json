@@ -69,7 +69,7 @@
           "user": "{{ user `remote_user` }}",
           "extra_arguments": [
             "--tags", "packer-imaging",
-            "--extra-vars", "ansible_python_interpreter='/usr/bin/python3'",
+            "--extra-vars", "ansible_python_interpreter='/usr/bin/env python3'",
             "--extra-vars", "remote_user={{ user `remote_user` }}",
             "--extra-vars", "role_name={{ user `role_name` }}"
           ],
@@ -82,3 +82,4 @@
         }
       ]
     }
+
