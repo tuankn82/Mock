@@ -51,11 +51,7 @@
         dest: "/lib/systemd/system/tomcat.service"
 
 - name: Packaging image
-  include_tasks: packer-imaging.yml
+  import_tasks: packer-imaging.yml
   tags:
     - packer-imaging
 
-- name: deployment
-  include_tasks: deployment.yml
-  tags:
-    - deployments
