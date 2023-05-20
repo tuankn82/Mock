@@ -1,7 +1,7 @@
 #value
 account_id = "503898016782"
 project    = "packer-dm"
-env        = "tuankn"
+env        = "tuankn82"
 profile    = "packer-dm"
 region     = "us-west-2"
 
