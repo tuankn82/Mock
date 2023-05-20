@@ -8,7 +8,7 @@ terraform {
   }
   #save tfstate to s3 bucket
   backend "s3" {
-    bucket = "packer-tuankn"
+    bucket = "packer-dm"
     key    = "infra/terraform.tfstate"
     region = "eu-west-2"
   }
