@@ -1,8 +1,8 @@
 #value
 account_id = "541253215789"
-project    = "packer-tuankn"
+project    = "packer-dm"
 env        = "tuankn"
-profile    = "packer-tuankn"
+profile    = "packer-dm"
 region     = "us-west-2"
 
 vpc_cidr               = "192.168.100.0/24"
