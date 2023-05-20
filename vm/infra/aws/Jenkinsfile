@@ -85,7 +85,7 @@ pipeline {
         sh '''#!/usr/bin/env bash
           echo "Shell Process ID: $$"
           cd "${WORK_SUB_DIR}"
-          bash scripts/init-deployment.bash
+          bash scripts/init_deployment.bash
         '''
       }
     }
@@ -104,7 +104,7 @@ pipeline {
           echo "Shell Process ID: $$"
           cd "${WORK_SUB_DIR}"
           sed -i 's/\r$//' scripts/*
-          bash scripts/post-cleanup.bash
+          bash scripts/post_cleanup.bash
         '''
       }
     }
