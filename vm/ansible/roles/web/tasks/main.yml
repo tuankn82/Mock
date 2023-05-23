@@ -14,8 +14,8 @@
     src: mysite.conf.j2
     dest: /etc/nginx/sites-enabled/mysite.conf
 
-- name: Packaging image
-  import_tasks: packer-imaging.yml
-  tags:
-    - packer-imaging
+- name: Setup nginx service
+  template:
+    src: nginx.service.j2
+    dest: /lib/systemd/system/nginx.service
 
