@@ -11,7 +11,7 @@
 
 - name: Copy nginx config
   template:
-    src: mysite.conf
+    src: mysite.conf.j2
     dest: /etc/nginx/sites-enabled/mysite.conf
 
 - name: Packaging image
@@ -19,7 +19,3 @@
   tags:
     - packer-imaging
 
-- name: deployment
-  import_tasks: deployment.yml
-  tags:
-    - deployments
