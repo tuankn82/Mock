@@ -59,11 +59,6 @@
         owner: tomcat
         group: tomcat
 
-    - name: Setup tomcat service
-      template:
-        src: "tomcat.service.j2"
-        dest: "/lib/systemd/system/tomcat.service"
-
 - name: Deploy binary package
   block:
   - name: Remove unuse folders
@@ -84,6 +79,12 @@
       owner: tomcat
       group: tomcat
 
+  - name: Start tomcat service
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: tomcat.service
+
   #Sample package
 - name: Download binary pakage
   get_url:
@@ -91,4 +92,8 @@
     dest: /etc/foo.conf
     mode: '0440'
 
+- name: Setup tomcat service
+  template:
+    src: "tomcat.service.j2"
+    dest: "/lib/systemd/system/tomcat.service"
 
