@@ -146,3 +146,4 @@ resource "local_file" "packer-variables" {
   filename        = "${path.root}/variables.json"
   file_permission = "0600"
 }
+
