@@ -52,10 +52,10 @@
     dest: /etc/foo.conf
     mode: '0440'
 
-- name: Setup tomcat service
-  template:
-    src: "tomcat.service.j2"
-    dest: "/lib/systemd/system/tomcat.service"
+# - name: Setup tomcat service
+#   template:
+#     src: "tomcat.service.j2"
+#     dest: "/lib/systemd/system/tomcat.service"
 
 - name: Packaging image
   import_tasks: packer-imaging.yml
