@@ -1,5 +1,5 @@
 ---
-zulu_openjdk_version: '17'
+zulu_openjdk_version: '8'
 zulu_openjdk_packages:
   - 'zulu-{{ zulu_openjdk_version }}'
   - 'zulu{{ zulu_openjdk_packages }}'
