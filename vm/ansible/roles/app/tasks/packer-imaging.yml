@@ -1,17 +1,23 @@
 ---
 - name: install jdk package
   block:
+    - name: add gnupg key for zulu openjdk
+      apt_key:
+        id: 'B1998361219BD9C9'
+        keyserver: 'hkp://keyserver.ubuntu.com:80'
+        state: present
+
     - name: add apt repository for zulu openjdk
       apt_repository:
         repo: 'deb http://repos.azulsystems.com/ubuntu stable main'
         state: present
 
-    - name: install zulu openjdk packages ({{ zulu_openjdk_version }})
+    - name: Install Zulu OpenJDK packages ({{ zulu_openjdk_version }})
       apt:
         name: '{{ item }}'
         state: present
         update_cache: yes
-      loop: '{{ zulu_openjdk_packages }}'
+      loop: "{{ zulu_openjdk_packages }}"
 
     - name: set JAVA_HOME system-wide environment variable
       lineinfile:
