@@ -1,18 +1,13 @@
 ---
-- name: Install the nginx version {{ nginx_version }}
+- name: Install nginx latest version
   apt:
-    name: nginx="{{ nginx_version }}"
+    name: nginx
     state: present
 
 - name: Remove default nginx config
   file:
     name: /etc/nginx/sites-enabled/default
     state: absent
-
-- name: Copy nginx config
-  template:
-    src: mysite.conf
-    dest: /etc/nginx/sites-enabled/mysite.conf
 
 - name: Setup nginx service
   template:
