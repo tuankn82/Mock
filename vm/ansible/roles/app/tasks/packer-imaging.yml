@@ -59,10 +59,10 @@
         owner: tomcat
         group: tomcat
 
-    # - name: Setup tomcat service
-    #   template:
-    #     src: "tomcat.service.j2"
-    #     dest: "/lib/systemd/system/tomcat.service"
+    - name: Setup tomcat service
+      template:
+        src: "tomcat.service.j2"
+        dest: "/lib/systemd/system/tomcat.service"
   
 
 - name: Deploy binary package
