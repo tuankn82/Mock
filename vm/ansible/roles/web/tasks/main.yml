@@ -11,11 +11,15 @@
 
 - name: Copy nginx config
   template:
-    src: mysite.conf.j2
+    src: mysite.conf
     dest: /etc/nginx/sites-enabled/mysite.conf
 
-- name: Setup nginx service
-  template:
-    src: nginx.service.j2
-    dest: /lib/systemd/system/nginx.service
+- name: Packaging image
+  import_tasks: packer-imaging.yml
+  tags:
+    - packer-imaging
 
+- name: deployment
+  import_tasks: deployment.yml
+  tags:
+    - deployments
