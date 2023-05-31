@@ -16,6 +16,17 @@ resource "aws_security_group_rule" "bastion-ssh" {
   description       = "For allow ssh from outside"
 }
 
+# allow ping from outside
+resource "aws_security_group_rule" "bastion-ping" {
+  from_port         = -1
+  protocol          = "icmp"
+  security_group_id = aws_security_group.bastion.id
+  to_port           = -1
+  type              = "ingress"
+  cidr_blocks       = [var.ssh_allow_cidr]
+  description       = "For allow ping from outside"
+}
+
 # Rule connect from inside ec2 instance to bastion outside via port 22
 resource "aws_security_group_rule" "admin-manage" {
   from_port                = 22

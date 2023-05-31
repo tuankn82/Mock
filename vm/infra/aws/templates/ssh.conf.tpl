@@ -40,3 +40,6 @@ Host app-${format("%02d", index + 1)} ${private_ip}
   LogLevel ERROR
   IdentityFile ${ssh_private_key_path_app}
 %{ endfor ~}
+
+
+
